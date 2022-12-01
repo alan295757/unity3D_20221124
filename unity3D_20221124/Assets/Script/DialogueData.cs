@@ -6,7 +6,7 @@ namespace JAY
     /// 對話資料
     /// </summary>
     [CreateAssetMenu(menuName = "JAY/Dialogue Data", fileName = "New Dialogue Data")]
-    public class NewBehaviourScript : ScriptableObject
+    public class DialogueData : ScriptableObject
     {
         [Header("對話者名稱")]
         public string dialogueName;
