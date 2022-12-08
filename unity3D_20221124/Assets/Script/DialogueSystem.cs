@@ -43,9 +43,15 @@ namespace JAY
             textName.text = dialogueOpening.dialogueName;
             textContent.text = "";
 
-            string dialogue = dialogueOpening.dialogueContents[0];
+            string dialogue = dialogueOpening.dialogueContents[1];
 
-            yield return dialogueInterval;
+            for (int i = 0; i < dialogue.Length; i++)
+            {
+                textContent.text += dialogue[i];
+                yield return dialogueInterval;
+            }
+
+            goTriangle.SetActive(true);
         }
     }
 }
