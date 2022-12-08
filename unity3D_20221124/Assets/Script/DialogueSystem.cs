@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 
 namespace JAY
 {
@@ -24,6 +25,27 @@ namespace JAY
             textContent = GameObject.Find("對話內容").GetComponent<TextMeshProUGUI>();
             goTriangle = GameObject.Find("對話完成圖示");
             goTriangle.SetActive(false);
+
+            StartCoroutine(FadeGroup());
+        }
+
+        private IEnumerator FadeGroup()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                groupDialogue.alpha += 0.1f;
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+
+        private IEnumerator TypeEffect()
+        {
+            textName.text = dialogueOpening.dialogueName;
+            textContent.text = "";
+
+            string dialogue = dialogueOpening.dialogueContents[0];
+
+            yield return dialogueInterval;
         }
     }
 }
