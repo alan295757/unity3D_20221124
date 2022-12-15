@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 013ce0102d475ad4c9caa6d56a32970b, type: 3}
-  m_Name: OpenDialogue
-  m_EditorClassIdentifier: Assembly-CSharp:JAY:NewBehaviourScript
-  dialogueName: TEXT
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  dialogueName: "\u9580"
   dialogueContents:
-  - "\u6211\u662F\u8AB0? \u6211\u5728\u54EA"
-  - "\u9019\u88E1\u597D\u6050\u6016\uFF0C\u6211\u60F3\u8981\u5FEB\u9EDE\u96E2\u958B..."
-  - 777777
+  - "\u9580\u662F\u9396\u4F4F\u7684..."
+  - "\u9470\u5319\u53EF\u80FD\u5728\u623F\u9593\u9644\u8FD1..."
