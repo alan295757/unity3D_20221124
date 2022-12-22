@@ -1,6 +1,8 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
-using System.Collections;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace JAY
 {
@@ -20,6 +22,10 @@ namespace JAY
         private TextMeshProUGUI textContent;
         private GameObject goTriangle;
 
+        private PlayerInput playerInput;        // 玩家輸入元件
+
+        private UnityEvent onDialogueFinish;
+
         private void Awake()
         {
             groupDialogue = GameObject.Find("畫布對話系統").GetComponent<CanvasGroup>();
@@ -28,9 +34,18 @@ namespace JAY
             goTriangle = GameObject.Find("對話完成圖示");
             goTriangle.SetActive(false);
 
-            StartCoroutine(FadeGroup());
+            playerInput = GameObject.Find("PlayerCapsule").GetComponent<PlayerInput>();
+
+            StartDialogue(dialogueOpening);
         }
 
+        public void StartDialogue(DialogueData data, UnityEvent _onDialogueFinish = null)
+        {
+            playerInput.enabled = false;        // 關閉 玩家輸入元件
+            StartCoroutine(FadeGroup());
+            StartCoroutine(TypeEffect(data));
+            onDialogueFinish = _onDialogueFinish;
+        }
         private IEnumerator FadeGroup(bool fadeIn = true)
         {
             // 三元運算子 ? ：
@@ -48,16 +63,16 @@ namespace JAY
             }
         }
 
-        private IEnumerator TypeEffect()
+        private IEnumerator TypeEffect(DialogueData data)
         {
-            textName.text = dialogueOpening.dialogueName;
+            textName.text = data.dialogueName;
 
-            for (int j = 0; j < dialogueOpening.dialogueContents.Length; j++)
+            for (int j = 0; j < data.dialogueContents.Length; j++)
             {
                 textContent.text = "";
                 goTriangle.SetActive(false);
 
-                string dialogue = dialogueOpening.dialogueContents[j];
+                string dialogue = data.dialogueContents[j];
 
                 for (int i = 0; i < dialogue.Length; i++)
                 {
@@ -77,6 +92,9 @@ namespace JAY
             }
 
             StartCoroutine(FadeGroup(false));
+
+            playerInput.enabled = true;             // 開啟 玩家輸入元件
+            onDialogueFinish.Invoke();              // 對話結束事件.呼叫()：
         }
     }
 }

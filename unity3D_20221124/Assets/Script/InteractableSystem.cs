@@ -1,26 +1,39 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.Events;
 
 namespace JAY
 {
     /// <summary>
-    /// ¤¬°Ê¨t²Î¡G°»´úª±®a¬O§_¶i¤J¨Ã¥B°õ¦æ¤¬°Ê¦æ¬°
+    /// äº’å‹•ç³»çµ±ï¼šåµæ¸¬ç©å®¶æ˜¯å¦é€²å…¥ä¸¦ä¸”åŸ·è¡Œäº’å‹•è¡Œç‚º
     /// </summary>
     public class InteractableSystem : MonoBehaviour
     {
-        [SerializeField, Header("¹ï¸Ü¸ê®Æ")]
+        [SerializeField, Header("å°è©±è³‡æ–™")]
         private DialogueData dataDialogue;
+        [SerializeField, Header("å°è©±çµæŸå¾Œçš„äº‹ä»¶")]
+        private UnityEvent onDialogueFinish;
 
         private string nameTarget = "PlayerCapsule";
-
-        // 3D ª«¥ó¾A¥Î
-        // ¨â­Ó¸I¼²ª«¥ó¥²¶·¨ä¤¤¤@­Ó¤Ä¿ï Is Trigger
-        // ¸I¼²¶}©l
-        private void OnTriggerEnter(Collider other)
+        private DialogueSystem dialogueSystem;
+        private void Awake()
         {
-            print(other.name);
+            dialogueSystem = GameObject.Find("ç•«å¸ƒå°è©±ç³»çµ±").GetComponent<DialogueSystem>();
         }
 
-        // ¸I¼²µ²§ô
+        // 3D ç‰©ä»¶é©ç”¨
+        // å…©å€‹ç¢°æ’ç‰©ä»¶å¿…é ˆå…¶ä¸­ä¸€å€‹å‹¾é¸ Is Trigger
+        // ç¢°æ’é–‹å§‹
+        private void OnTriggerEnter(Collider other)
+        {
+            // å¦‚æœ ç¢°æ’ç‰©ä»¶åç¨± åŒ…å« PlayerCapsule å°±åŸ·è¡Œ {}
+            if (other.name.Contains(nameTarget))
+            {
+                print(other.name);
+                dialogueSystem.StartDialogue(dataDialogue, onDialogueFinish);
+            } 
+        }
+
+        // ç¢°æ’çµæŸ
         private void OnTriggerExit(Collider other)
         {
             
@@ -28,7 +41,15 @@ namespace JAY
 
         private void OnTriggerStay(Collider other)
         {
-            
+
+        }
+
+        /// <summary>
+        /// éš±è—ç‰©ä»¶
+        /// </summary>
+        public void HiddenObject()
+        {
+            gameObject.SetActive(false);
         }
     }
 }
