@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013ce0102d475ad4c9caa6d56a32970b, type: 3}
   m_Name: key
   m_EditorClassIdentifier: 
-  dialogueName: 
+  dialogueName: "\u6211"
   dialogueContents:
-  - I'm Key
+  - "\u902E\u5230\u4F60\u56C9 \u9470\u5319"

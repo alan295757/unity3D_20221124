@@ -38,7 +38,11 @@ namespace JAY
 
             StartDialogue(dialogueOpening);
         }
-
+        /// <summary>
+        /// 開始對話
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="_onDialogueFinish"></param>
         public void StartDialogue(DialogueData data, UnityEvent _onDialogueFinish = null)
         {
             playerInput.enabled = false;        // 關閉 玩家輸入元件
@@ -94,6 +98,8 @@ namespace JAY
             StartCoroutine(FadeGroup(false));
 
             playerInput.enabled = true;             // 開啟 玩家輸入元件
+
+            // ?. 當 onDialogueFinish 沒有值時就不執行
             onDialogueFinish.Invoke();              // 對話結束事件.呼叫()：
         }
     }
